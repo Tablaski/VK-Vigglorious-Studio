@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+/AGENTS.md
+/.agents/
+/.codex/
+/.env
+/tests/
+/docs/
+/input/
+/output/
+/temp/
