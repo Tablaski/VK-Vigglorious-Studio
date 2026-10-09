@@ -28,6 +28,10 @@ The method works for strengthening identity, outfits and body changes. **There i
 
 ## Reference images per chunk
 
+![Video Manager with chunk references, guides and a fictional demo clip](assets/illustrations/video-manager.jpg)
+
+*Illustrations use the original frontend components in an isolated demo page, with fictional AI-generated characters and media. They illustrate the interface, not Viggle generation results; the surrounding page is not the full ComfyUI canvas.*
+
 In Video Manager, set the light-red **Chunk Ref Frame ?** button to **YES** beside the prompt shortcuts, then add a Head / Body / Body then Head guide with the desired angles and prompts. It becomes this chunk's reference; the previous reference becomes an ordinary guide. The button returns to **NO** after creation and is muted while this chunk has a reference. A red warning appears when the video mixes body-swapped references (Body or Body then Head) with head-only references. Alternatively, select an ordinary guide and press **Chunk Ref** to promote it while keeping its settings. The player’s **Chunk Ref Frame** button seeks the local reference and is disabled when the chunk has none. References cannot be assigned to another chunk. Thick red cursors mark references on both timelines. A missing chunk uses the nearest chunk's reference; equal distances choose the earlier chunk. Gallery previews stay chronological. Borrowed references show **Default reference from chunk # - please select a reference frame from this chunk if possible**.
 
 **Remove Chunk Guides** and **Remove All Guides** preserve reference images. **Remove All Guides and Reference Images** clears the entire video selection, including outside the cut.
@@ -125,11 +129,17 @@ The Pruna LoRA is enabled in the supplied 8-step swap subgraphs; removing it req
 
 ## Why start low on the first step?
 
+![Attention-Masked Guide with per-step controls and guide mask overlays](assets/illustrations/masked-attention.jpg)
+
+*Illustrative attention settings and manually prepared mask overlays; these masks are not SAM3 inference results.*
+
 Our working approach is to keep guide attention low at high sigma, giving Viggle room to establish motion and composition, then strengthen appearance guidance. Strong early guidance can also pull in a guide's pose or background. This balances replacement against the source motion and composition; the first step also contributes to the replacement itself, so it is not a strict split between “motion” and “detail” steps.
 
 For three steps, **`0.5 / 2 / 2`** is a starting point for guide attention. A factor of 1 is native attention; 2 increases the relative weight before normalization, not likeness by 200%. **OFF** removes these guides for that step. **ON at 0** retains guide tokens and can still have indirect effects. RefMod modes have separate strength meanings; do not copy these factors into residual attention.
 
 ## What do the sigmas change?
+
+![Sigma Scheduler with an editable three-step sigma curve](assets/illustrations/sigma-scheduler.jpg)
 
 Start from **`1, 0.9, 0.45, 0`** with Euler: four points define three steps. Moving the second sigma closer to 1 makes the first transition smaller; lowering it makes it larger. Changing sigmas also moves where the scheduled guidance acts along the sampling trajectory.
 
@@ -140,6 +150,8 @@ Changing `steps` interpolates the curve while keeping its endpoints. Match the s
 ## First run
 
 Connect Character Manager to Video Manager, select a few clear frames, and choose Head, Full body or Full body then Head for each guide.
+
+![Character Manager with three fictional characters and head and body reference angles](assets/illustrations/character-manager.jpg)
 
 Video Manager previews the selected character and reference angles beside the swap controls. Guide cards show their chosen angles and their reference chunk. **Replace selected** moves a guide while keeping its swap settings; a reference can only move within its own chunk. **Show only cut** focuses navigation on the cut; **Export cut** saves it as MP4 at the processing resolution and FPS, with source audio.
 
